@@ -20,6 +20,10 @@ public class Teacher {
     public Teacher() {
     }
 
+    public Teacher(String name) {
+        this.name = name;
+    }
+
     public Teacher(String name, List<Course> courses) {
         this.name = name;
         this.courses = courses;

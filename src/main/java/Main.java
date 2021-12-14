@@ -9,6 +9,5 @@ public class Main {
         UI ui = new UI(io,cd,sd,tc,ec);
 
         ui.mainMenuSwitch();
-
     }
 }
