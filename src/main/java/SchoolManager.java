@@ -1,4 +1,12 @@
+import entity.Education;
+import entity.Student;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 public class SchoolManager implements DAO {
+    static EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
 
     IO io;
 
@@ -8,6 +16,23 @@ public class SchoolManager implements DAO {
 
     @Override
     public void addStudent() {
+        EntityManager em = emf.createEntityManager();
+        showAllEducations();
+        io.printAnything("Choose education (by id): ");
+        int id = io.getInt();
+        Education education = em.find(Education.class,id);
+
+        io.printAnything("Name: ");
+        String name = io.getString();
+
+        io.printAnything("Age: ");
+        int age = io.getInt();
+        Student student = new Student(name,age,education);
+
+        em.getTransaction().begin();
+        em.persist(student);
+        em.getTransaction().commit();
+        em.close();
 
     }
 
