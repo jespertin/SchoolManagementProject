@@ -5,19 +5,20 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class SchoolManager implements DAO {
-    static EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
+public class StudentCRUD implements StudentDAO {
+
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
 
     IO io;
 
-    public SchoolManager(IO io) {
+    public StudentCRUD(IO io) {
         this.io = io;
     }
 
     @Override
     public void addStudent() {
         EntityManager em = emf.createEntityManager();
-        showAllEducations();
+
         io.printAnything("Choose education (by id): ");
         int id = io.getInt();
         Education education = em.find(Education.class,id);
@@ -63,66 +64,6 @@ public class SchoolManager implements DAO {
 
     @Override
     public void findStudentById() {
-
-    }
-
-    @Override
-    public void addCourse() {
-
-    }
-
-    @Override
-    public void updateCourseName() {
-
-    }
-
-    @Override
-    public void removeCourse() {
-
-    }
-
-    @Override
-    public void showAllCourses() {
-
-    }
-
-    @Override
-    public void addTeacher() {
-
-    }
-
-    @Override
-    public void updateTeacherName() {
-
-    }
-
-    @Override
-    public void removeTeacher() {
-
-    }
-
-    @Override
-    public void showAllTeachers() {
-
-    }
-
-    @Override
-    public void addEducation() {
-
-    }
-
-    @Override
-    public void updateEducationName() {
-
-    }
-
-    @Override
-    public void removeEducation() {
-
-    }
-
-    @Override
-    public void showAllEducations() {
 
     }
 }

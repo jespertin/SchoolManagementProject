@@ -15,17 +15,14 @@ public class Education {
     @Id
     @GeneratedValue
     private int id;
-    @Basic
     private String name;
     @OneToMany(mappedBy = "education")
     private List<Student> students;
     @ManyToMany(mappedBy = "educations")
     private List<Course> courses;
 
-    public Education(String name, List<Student> students, List<Course> courses) {
+    public Education(String name) {
         this.name = name;
-        this.students = students;
-        this.courses = courses;
     }
 
     public Education() {

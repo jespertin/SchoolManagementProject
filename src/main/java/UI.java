@@ -1,22 +1,31 @@
 public class UI {
 
     IO io;
-    SchoolManager manager;
+    CourseCRUD courseCRUD;
+    StudentCRUD studentCRUD;
+    TeacherCRUD teacherCRUD;
+    EducationCRUD educationCRUD;
 
-    public UI(IO io, SchoolManager manager) {
+    public UI(IO io, CourseCRUD courseCRUD, StudentCRUD studentCRUD, TeacherCRUD teacherCRUD, EducationCRUD educationCRUD) {
         this.io = io;
-        this.manager = manager;
+        this.courseCRUD = courseCRUD;
+        this.studentCRUD = studentCRUD;
+        this.teacherCRUD = teacherCRUD;
+        this.educationCRUD = educationCRUD;
     }
+
 
     public void mainMenuSwitch(){
         boolean keepGoing = true;
 
 
-        while (true) {
+        while (keepGoing) {
+            printMainMenu();
             int menuChoice = io.getInt();
 
             switch (menuChoice){
-                case 1 -> manager.addCourse();
+                case 1 -> studentCRUD.addStudent();
+
             }
         }
 
@@ -27,7 +36,7 @@ public class UI {
                 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
                                     Main Menu
                 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-                1. Add course
+                1. Add Student
                 2. 
                 __________________________________________________
                 """);

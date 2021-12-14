@@ -13,7 +13,6 @@ public class Student {
     @Id
     @GeneratedValue
     private String id;
-    @Basic
     private String name;
     private int age;
     @ManyToOne

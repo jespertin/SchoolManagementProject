@@ -14,8 +14,7 @@ public class Course {
 
     @Id
     @GeneratedValue
-    private Long id;
-    @Basic
+    private int id;
     private String name;
     @ManyToMany
     private List<Education> educations;
@@ -31,11 +30,11 @@ public class Course {
     public Course() {
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
