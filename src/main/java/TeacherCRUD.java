@@ -4,6 +4,8 @@ import entity.Teacher;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TeacherCRUD implements TeacherDAO{
     public EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
@@ -16,24 +18,28 @@ public class TeacherCRUD implements TeacherDAO{
     @Override
     public void addTeacher() {
         EntityManager em = emf.createEntityManager();
+        Teacher teacher;
 
         System.out.println("Name: ");
         String name = io.getString();
-
-        Teacher teacher = new Teacher(name);
 
         System.out.println("Add course(s)? (y/n): ");
         String yesOrNo = io.getString();
 
         if (yesOrNo.equalsIgnoreCase("y")) {
+            List<Course> courses = new ArrayList<>();
             em.createQuery("SELECT c FROM Course c", Course.class).getResultStream().forEach(System.out::println);
 
             do {
                 System.out.println("Course id: ");
-                teacher.addCourse(em.find(Course.class, io.getInt()));
+                courses.add(em.find(Course.class, io.getInt()));
 
                 System.out.println("Another course? (y/n): ");
             } while (io.getString().equalsIgnoreCase("y"));
+
+            teacher = new Teacher(name, courses);
+        } else {
+            teacher = new Teacher(name);
         }
 
         em.getTransaction().begin();
