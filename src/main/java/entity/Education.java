@@ -15,9 +15,12 @@ public class Education {
     @Id
     @GeneratedValue
     private int id;
+
     private String name;
+
     @OneToMany(mappedBy = "education")
     private List<Student> students;
+
     @ManyToMany(mappedBy = "educations")
     private List<Course> courses;
 

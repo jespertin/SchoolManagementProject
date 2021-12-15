@@ -9,4 +9,6 @@ public interface EducationDAO {
 
     void showAllEducations();
 
+    void updateEducation();
+
 }

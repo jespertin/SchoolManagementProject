@@ -28,6 +28,39 @@ public class EducationCRUD implements EducationDAO {
         em.getTransaction().commit();
         em.close();
 
+        EntityManager em = emf.createEntityManager();
+
+        TypedQuery<Education> q = em.createQuery("SELECT e FROM Education e", Education.class);
+        List<Education> education = q.getResultList();
+
+        education.forEach(e -> System.out.println(e));
+
+        em.close();
+
+    }
+
+
+    @Override
+    public void updateEducation() {
+
+        showAllEducations();
+
+        io.printAnything("Education Id: ");
+        int id = io.getInt();
+
+        io.printAnything("Name: ");
+        String name = io.getString();
+
+        EntityManager em = emf.createEntityManager();
+
+        Education education = em.find(Education.class, id);
+
+        em.getTransaction().begin();
+        education.setName(name);
+
+        em.getTransaction().commit();
+        em.close();
+
     }
 
     @Override
