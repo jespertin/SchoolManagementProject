@@ -14,8 +14,7 @@ public class Teacher {
     @ManyToMany
     private List<Course> courses;
 
-    public Teacher() {
-    }
+    public Teacher() {}
 
     public Teacher(String name) {
         this.name = name;
@@ -24,11 +23,6 @@ public class Teacher {
     public Teacher(String name, List<Course> courses) {
         this.name = name;
         this.courses = courses;
-    }
-
-    @PreRemove
-    public void removeCourses() {
-        courses.forEach(this::removeCourse);
     }
 
     public int getId() {
@@ -66,6 +60,11 @@ public class Teacher {
     public void removeCourse(Course course) {
         getCourses().remove(course);
         course.getTeachers().remove(this);
+    }
+
+    @PreRemove
+    public void removeCourses() {
+        courses.forEach(this::removeCourse);
     }
 
     @Override
