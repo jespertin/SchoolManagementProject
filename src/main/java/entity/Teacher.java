@@ -2,10 +2,7 @@ package entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
 @Entity
 public class Teacher {
@@ -27,6 +24,11 @@ public class Teacher {
     public Teacher(String name, List<Course> courses) {
         this.name = name;
         this.courses = courses;
+    }
+
+    @PreRemove
+    public void removeCourses() {
+        courses.forEach(this::removeCourse);
     }
 
     public int getId() {
@@ -68,10 +70,20 @@ public class Teacher {
 
     @Override
     public String toString() {
+        StringBuilder sb = new StringBuilder();
+        courses.forEach((h) -> sb
+                .append("Course{id=")
+                .append(h.getId())
+                .append(", name='")
+                .append(h.getName())
+                .append("'}, "));
+        sb.delete(sb.length() - 2, sb.length());
         return "Teacher{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", courses=" +
+                ", courses=[" + sb + "]" +
                 '}';
     }
 }
+
+

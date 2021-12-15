@@ -1,3 +1,5 @@
+import entity.Student;
+
 public interface StudentDAO {
 
     void addStudent();
@@ -12,6 +14,6 @@ public interface StudentDAO {
 
     void removeStudent();
 
-    void findStudentById();
+    Student findStudentById();
 
 }
