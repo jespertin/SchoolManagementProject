@@ -1,5 +1,8 @@
+package dao;
+
 import entity.Education;
 import entity.Student;
+import utils.IO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -106,16 +109,17 @@ public class StudentCRUD implements StudentDAO {
         io.printAnything("STUDENTS:");
         em.createQuery("select s from Student s", Student.class)
                 .getResultList()
-                .forEach(io::printAnything);
+                .forEach(System.out::println);
     }
 
     @Override
     public void removeStudent() {
         EntityManager em = emf.createEntityManager();
 
+        showAllStudents();
         Student s = findStudentById();
 
-        s.getEducation().getStudents().remove(s);
+
 
         em.getTransaction().begin();
         em.remove(em.merge(s));
@@ -123,7 +127,6 @@ public class StudentCRUD implements StudentDAO {
         em.close();
     }
 
-    @Override
     public Student findStudentById() {
         EntityManager em = emf.createEntityManager();
 
@@ -132,4 +135,5 @@ public class StudentCRUD implements StudentDAO {
 
         return em.find(Student.class, id);
     }
+
 }

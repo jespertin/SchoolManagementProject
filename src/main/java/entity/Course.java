@@ -2,11 +2,7 @@ package entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
 
 @Entity
@@ -21,10 +17,8 @@ public class Course {
     @ManyToMany(mappedBy = "courses")
     private List<Teacher> teachers;
 
-    public Course(String name, List<Education> educations, List<Teacher> teachers) {
+    public Course(String name) {
         this.name = name;
-        this.educations = educations;
-        this.teachers = teachers;
     }
 
     public Course() {
@@ -51,6 +45,21 @@ public class Course {
             educations = new ArrayList<>();
         }
         return educations;
+    }
+
+    @PreRemove
+    public void beforeRemove() {
+        educations.forEach(education -> education.getCourses().remove(this));
+        teachers.forEach(teacher -> teacher.getCourses().remove(this));
+
+        for (Education education : educations) {
+            education.getCourses().remove(this);
+        }
+
+        for (Teacher teacher : teachers) {
+            teacher.getCourses().remove(this);
+        }
+
     }
 
     public void setEducations(List<Education> educations) {
@@ -80,6 +89,7 @@ public class Course {
 
     public void addTeacher(Teacher teacher) {
         getTeachers().add(teacher);
+        teacher.getCourses().add(this);
     }
 
     public void removeTeacher(Teacher teacher) {

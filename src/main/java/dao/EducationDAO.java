@@ -1,3 +1,5 @@
+package dao;
+
 public interface EducationDAO {
 
 
@@ -9,6 +11,6 @@ public interface EducationDAO {
 
     void showAllEducations();
 
-    void updateEducation();
+
 
 }

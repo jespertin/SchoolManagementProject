@@ -64,19 +64,25 @@ public class Teacher {
 
     @PreRemove
     public void removeCourses() {
-        courses.forEach(this::removeCourse);
+
+        for (Course course : courses) {
+            course.getTeachers().remove(this);
+        }
+
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        courses.forEach((h) -> sb
-                .append("Course{id=")
-                .append(h.getId())
-                .append(", name='")
-                .append(h.getName())
-                .append("'}, "));
-        sb.delete(sb.length() - 2, sb.length());
+        if (!courses.isEmpty()) {
+            courses.forEach((h) -> sb
+                    .append("Course{id=")
+                    .append(h.getId())
+                    .append(", name='")
+                    .append(h.getName())
+                    .append("'}, "));
+            sb.delete(sb.length() - 2, sb.length());
+        }
         return "Teacher{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
@@ -84,5 +90,4 @@ public class Teacher {
                 '}';
     }
 }
-
 

@@ -1,3 +1,5 @@
+package dao;
+
 public interface TeacherDAO {
 
     void addTeacher();

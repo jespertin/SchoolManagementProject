@@ -1,10 +1,6 @@
 package entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 
 @Entity
@@ -25,6 +21,10 @@ public class Student {
         this.name = name;
         this.age = age;
         this.education = education;
+    }
+    @PreRemove
+    public void removeEducation(){
+        this.getEducation().removeStudent(this);
     }
 
     public int getAge() {
@@ -57,6 +57,7 @@ public class Student {
 
     public void setEducation(Education education) {
         this.education = education;
+        education.addStudent(this);
     }
 
     @Override

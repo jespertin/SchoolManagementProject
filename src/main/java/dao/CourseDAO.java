@@ -1,3 +1,5 @@
+package dao;
+
 public interface CourseDAO {
 
     void addCourse();
